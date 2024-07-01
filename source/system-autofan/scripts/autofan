@@ -27,10 +27,11 @@
 # Version 1.7   Modified by doron       - Prevent spinning up SAS drives, use sdspin
 #                                       - Use "-n standby" flag in smartctl calls, extra safety
 #                                       - Obtain HD temp data from SAS drives
+# Version 1.8   Modified by d3nny       - NVMe / All Flash support
 #=======================================================================================
 # Dependencies: grep,awk,smartctl,hdparm
 #=======================================================================================
-version=1.7
+version=1.8
 program_name="autofan"
 usage() {
  echo "Usage: $program_name [-t min_temp] [-T max_temp] [-m loop in minutes] [-c controller] [-f fan] [-l low]"
@@ -199,17 +200,19 @@ function_get_highest_hd_temp() {
   HIGHEST_TEMP=0
   [[ $(version $version) -ge $(version "6.8.9") ]] && HDD=1 || HDD=
   for DISK in "${HD[@]}"; do
-    # Get disk state using sdspin (new) or hdparm (legacy)
-    [[ -n $HDD ]] && SLEEPING=`sdspin ${DISK}; echo $?` || SLEEPING=`hdparm -C ${DISK}|grep -c standby`
-    if [[ $SLEEPING -eq 0 ]]; then
-      if [[ $DISK == /dev/nvme[0-9] ]]; then
+    # NVMEs never sleeps, so skip the sleeping check
+    if [[ $DISK == /dev/nvme[0-9] ]]; then
         CURRENT_TEMP=$(smartctl -n standby -A $DISK | awk '$1=="Temperature:" {print $2;exit}')
-      else
-        CURRENT_TEMP=$(smartctl -n standby -A $DISK | awk '$1==190||$1==194 {print $10;exit} $1=="Current"&&$3=="Temperature:" {print $4;exit}')
-      fi
-      if [[ $HIGHEST_TEMP -le $CURRENT_TEMP ]]; then
-        HIGHEST_TEMP=$CURRENT_TEMP
-      fi
+    else
+       # Checking if hdd is sleeping; if not, check temp
+       # Get disk state using sdspin (new) or hdparm (legacy)
+       [[ -n $HDD ]] && SLEEPING=`sdspin ${DISK}; echo $?` || SLEEPING=`hdparm -C ${DISK}|grep -c standby`
+       if [[ $SLEEPING -eq 0 ]]; then
+          CURRENT_TEMP=$(smartctl -n standby -A $DISK | awk '$1==190||$1==194 {print $10;exit} $1=="Current"&&$3=="Temperature:" {print $4;exit}')
+       fi
+    fi
+    if [[ $HIGHEST_TEMP -le $CURRENT_TEMP ]]; then
+      HIGHEST_TEMP=$CURRENT_TEMP
     fi
   done
 }

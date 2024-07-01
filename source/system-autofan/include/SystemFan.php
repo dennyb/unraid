@@ -1,5 +1,6 @@
 <?PHP
 /* Copyright 2012-2023, Bergware International.
+ * Copyright 2024, d3nny.de.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License version 2,
@@ -12,10 +13,11 @@
  *
  * Version log:
  * Version 1.6   Modified by InfinityMod - added multifan support
+ * Version 1.8   Modified by d3nny.de - forking and improving
  */
 ?>
 <?
-$plugin = 'dynamix.system.autofan';
+$plugin = 'd3nny.system.autofan';
 $docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
 
 function scan_dir($dir) {

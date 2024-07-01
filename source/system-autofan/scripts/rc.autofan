@@ -21,7 +21,7 @@
 #                                       - added exclude disks from temperature reading (contributed by andreiio)
 # Version 1.6   Modified by InfinityMod - added multifan support
 #                                       - added fan spin up/down offset 
-plugin=dynamix.system.autofan
+plugin=d3nny.system.autofan
 script=autofan
 execute=/usr/local/emhttp/plugins/$plugin/scripts/$script
 cfg_path=/boot/config/plugins/$plugin
