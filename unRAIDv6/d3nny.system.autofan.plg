@@ -1,13 +1,13 @@
 <?xml version='1.0' standalone='yes'?>
 
 <!DOCTYPE PLUGIN [
-<!ENTITY name      "dynamix.system.autofan">
-<!ENTITY author    "Bergware/gfjardim">
-<!ENTITY version   "2023.02.05a">
+<!ENTITY name      "d3nny.system.autofan">
+<!ENTITY author    "d3nny">
+<!ENTITY version   "2024.07.01a">
 <!ENTITY launch    "Settings/FanSettings">
-<!ENTITY pluginURL "https://raw.githubusercontent.com/bergware/dynamix/master/unRAIDv6/&name;.plg">
+<!ENTITY pluginURL "https://raw.githubusercontent.com/dennyb/unraid/master/unRAIDv6/&name;.plg">
 <!ENTITY source    "/boot/config/plugins/&name;/&name;">
-<!ENTITY MD5       "bc97a82871229d183f6d6a505897b483">
+<!ENTITY MD5       "ef2fb7e3244bc049fc234c8315ccce62">
 ]>
 
 <PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="6.9.0">
@@ -16,6 +16,10 @@
 ##&name;
 
 ###&version;
+- forked from https://github.com/bergware/dynamix
+- changing temp check to be compatible with nvmes
+
+###2023.02.05a
 - set minimum Unraid version to 6.9 (supports multi-language)
 - added support for upcoming Unraid version 6.12 
 
@@ -109,7 +113,7 @@ fi
 
 <!-- SOURCE PACKAGE -->
 <FILE Name="&source;.txz" Run="upgradepkg --install-new --reinstall">
-<URL>https://raw.githubusercontent.com/bergware/dynamix/master/archive/&name;.txz</URL>
+<URL>https://raw.githubusercontent.com/dennyb/unraid/master/archive/&name;.txz</URL>
 <MD5>&MD5;</MD5>
 </FILE>
 
@@ -141,6 +145,7 @@ echo "-----------------------------------------------------------"
 echo " Plugin &name; is installed."
 echo " This plugin requires Dynamix webGui to operate"
 echo " Copyright 2023, Bergware International"
+echo " Copyright 2024, d3nny.de"
 echo " Version: &version;"
 echo "-----------------------------------------------------------"
 echo ""
