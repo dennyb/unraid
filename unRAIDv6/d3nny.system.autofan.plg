@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "d3nny.system.autofan">
 <!ENTITY author    "d3nny">
-<!ENTITY version   "2024.07.01a">
+<!ENTITY version   "2024.07.01b">
 <!ENTITY launch    "Settings/FanSettings">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/dennyb/unraid/master/unRAIDv6/&name;.plg">
 <!ENTITY source    "/boot/config/plugins/&name;/&name;">
